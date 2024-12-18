@@ -6,3 +6,17 @@ Saved/
 Binaries/
 Build/
 build/
+ 
+*.suo  
+*.user  
+*.sln  
+*.vcxproj  
+*.vcxproj.filters  
+.vs/  
+
+*.exe  
+*.dll  
+*.lib  
+ 
+*.tmp  
+*.log 

@@ -12,9 +12,14 @@ set_property(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR} PROPERTY VS_STARTUP_PROJECT $
 set(CMAKE_CXX_STANDARD 20)  
 set(CMAKE_CXX_STANDARD_REQUIRED True)  
 
+
+
 # app options
-set(SOURCES Source/main.cpp)
-set(INCLUDES Source/LinkedList.h)
+# set(SOURCES Source/main.cpp)
+# set(INCLUDES Source/LinkedList.h)
+
+file(GLOB SOURCES "Source/*.cpp")  
+file(GLOB INCLUDES "Source/*.h")  
 
 add_executable(${PROJECT_NAME}  ${SOURCES} ${INCLUDES}) 
 
