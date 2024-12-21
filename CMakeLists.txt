@@ -21,12 +21,11 @@ file(GLOB_RECURSE INCLUDES "Source/*.h")
 
 # Include  
 include_directories(Source)  
-enable_testing()  
+include_directories(${CMAKE_SOURCE_DIR}/Source) 
 
-# main  
+
+# Exec
 add_executable(${PROJECT_NAME} ${SOURCES} ${INCLUDES})  
-
-# test 
 add_executable(tests Tests/ListTest.cpp)   
 
 # find  
@@ -34,13 +33,7 @@ list(APPEND CMAKE_PREFIX_PATH "C:/Users/fatba/vcpkg/installed/x64-windows")
 find_package(GTest CONFIG REQUIRED)   
 
 # link libs  
-target_link_libraries(tests   
-    PRIVATE   
-    GTest::gtest   
-    GTest::gtest_main  
-)  
-
-# add test
-add_test(NAME RunTests COMMAND tests)  
-
+target_link_libraries(tests PRIVATE GTest::gtest GTest::gtest_main)  
+target_include_directories(tests PRIVATE ${CMAKE_SOURCE_DIR}/Source)  
+ 
 message ("-------Project Files Generated--------")  
