@@ -1,24 +1,46 @@
+
 # general info  
-cmake_minimum_required(VERSION 3.30)  
+cmake_minimum_required(VERSION 3.20)  
 set(PROJECT_NAME SomePractice)  
 project(${PROJECT_NAME} VERSION 1.0.0)  
 message ("----------------Project File Generation for ${PROJECT_NAME}----------------- ")  
 
+
 # common options  
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)  
 set_property(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR} PROPERTY VS_STARTUP_PROJECT ${PROJECT_NAME})  
+set(CMAKE_TOOLCHAIN_FILE "C:/Users/fatba/vcpkg/scripts/buildsystems/vcpkg.cmake")  
 
 # cpp options  
 set(CMAKE_CXX_STANDARD 20)  
 set(CMAKE_CXX_STANDARD_REQUIRED True)  
 
-# Recources
+# Recources  
 file(GLOB_RECURSE SOURCES "Source/*.cpp")  
 file(GLOB_RECURSE INCLUDES "Source/*.h")  
 
-# Include
+# Include  
 include_directories(Source)  
+enable_testing()  
 
-add_executable(${PROJECT_NAME} ${SOURCES} ${INCLUDES})   
+# main  
+add_executable(${PROJECT_NAME} ${SOURCES} ${INCLUDES})  
+
+# test 
+add_executable(tests Tests/ListTest.cpp)   
+
+# find  
+list(APPEND CMAKE_PREFIX_PATH "C:/Users/fatba/vcpkg/installed/x64-windows")  
+find_package(GTest CONFIG REQUIRED)   
+
+# link libs  
+target_link_libraries(tests   
+    PRIVATE   
+    GTest::gtest   
+    GTest::gtest_main  
+)  
+
+# add test
+add_test(NAME RunTests COMMAND tests)  
 
 message ("-------Project Files Generated--------")  
