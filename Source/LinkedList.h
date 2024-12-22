@@ -137,13 +137,14 @@ public:
                 Tail->Next = nullptr;
             }
         }
-
+        //todo num >= 3
     }
 
     template <typename U>
         requires std::same_as<T, U>
     bool FindValue()
     {
+        // todo find
     }
 
 private:
