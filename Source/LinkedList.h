@@ -2,6 +2,7 @@
 #include <concepts>
 #include <vector>
 #include <string>
+#include <algorithm>
 
 template <typename T>
 struct Node
@@ -114,13 +115,44 @@ public:
         Num = 0;
     }
 
+    T GetFrontData() {
+        if (Head == nullptr) return NULL;
+        return Head->Data; }
+    Node<T>* GetFrontNode() { return Head; }
+    T GetTailData()
+    {
+        if (Tail == nullptr) return NULL;
+        return Tail->Data;
+    }
+
+    void Sort()
+    {
+        if (Num == 0 || Num == 1) return;
+        if (Num == 2)
+        {
+            if (Head->Data > Tail->Data)
+            {
+                std::swap(Head, Tail);
+                Head->Next = Tail;
+                Tail->Next = nullptr;
+            }
+        }
+
+    }
+
+    template <typename U>
+        requires std::same_as<T, U>
+    bool FindValue()
+    {
+    }
+
 private:
     Node<T>* Head = nullptr;
     Node<T>* Tail = nullptr;
     int Num = 0;
+    bool sorted = false;
 
 public:
-    // ITERATORS
     class Iterator
     {
     public:
@@ -147,7 +179,6 @@ public:
 
         bool operator==(const Iterator& rhs) const { return Current == rhs.Current; }
     };
-
     Iterator begin() { return Iterator(Head); }
     Iterator end() { return Iterator(nullptr); }
 };
